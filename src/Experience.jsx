@@ -1,4 +1,4 @@
-import { Mask, OrbitControls, Environment } from "@react-three/drei"
+import { PivotControls, Mask, OrbitControls, Environment } from "@react-three/drei"
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import Bird from './Bird.jsx'
@@ -8,9 +8,13 @@ import { useControls } from 'leva'
 
 export default function Experience()
 {
-    const { lensPositionX, lensPositionY } = useControls({ 
-        lensPositionX: 0,
-        lensPositionY: 0,
+    // const { lensPositionX, lensPositionY } = useControls({ 
+    //     lensPositionX: 0,
+    //     lensPositionY: 0,
+    // })
+
+    const {birdPositionY} = useControls({
+        birdPositionY: -3
     })
 
     return <>
@@ -24,10 +28,10 @@ export default function Experience()
             <Suspense fallback={null}>
                 <Environment preset="city" />
 
-                <CircularMask scale={0.7} position={[lensPositionX, lensPositionY, 0]}/>
+                <CircularMask scale={0.7} />
 
                 <Background />
-                <Birds scale={1.2} position-y={-2.6}/>
+                <Birds scale={1.2} position-y={birdPositionY}/>
             </Suspense>
         </Canvas>
     </>
@@ -35,17 +39,19 @@ export default function Experience()
 
 const CircularMask = (props) => (
   <group {...props}>
-      <Frame position={[0, 0, 1]} />
-      <Mask id={1} position={[0, 0, 0.95]}>
-        <circleGeometry args={[0.8, 64]} />
-      </Mask>
+    <PivotControls offset={[0.5, 0.5, 1]} activeAxes={[true, true, false]} disableRotations depthTest={false} lineWidth={0} anchor={0} scale={0.9} disableAxes={true} disableScaling={true} >
+        <Frame position={[0, 0, 1]} />
+        <Mask id={1} position={[0, 0, 0.95]}>
+            <circleGeometry args={[0.8, 64]} />
+        </Mask>
+    </PivotControls>
   </group>
 )
 
 const Frame = (props) => (
   <mesh {...props}>
-    <ringGeometry args={[0.785, 0.85, 64]} />
-    <meshPhongMaterial color="black" />
+    <ringGeometry args={[0.785, 0.88, 64]} />
+    <meshPhongMaterial color="#472555" />
   </mesh>
 )
 
