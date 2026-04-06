@@ -2,6 +2,7 @@ import { Mask, OrbitControls, Environment } from "@react-three/drei"
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import Bird from './Bird.jsx'
+import Birds from './Birds.jsx'
 import Background from './Background.jsx'
 import { useControls } from 'leva'
 
@@ -26,7 +27,7 @@ export default function Experience()
                 <CircularMask scale={0.7} position={[lensPositionX, lensPositionY, 0]}/>
 
                 <Background />
-                <Bird scale={1.8} rotation-x={Math.PI * 0.03} position-x={1}/>
+                <Birds scale={1.2} position-y={-2.6}/>
             </Suspense>
         </Canvas>
     </>
